@@ -4,7 +4,7 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
-const User = use('AppModels/User')
+const User = use('App/Models/User')
 
 /**
  * Resourceful controller for interacting with users
@@ -67,13 +67,22 @@ class UserController {
   async show ({ params, request, response, view }) {
     try{
 
+      const user = await User.find('id', params.id);
+console.log(user);
+      // if(user) {
+      //   return user
+      // } else {
+      //   return r
+      // }
+
+      return user ?? response.status(404).send({message: {error: 'User not found'}});
+
+
     } catch(err) {
       return response
         .status(err.status)
         .send(err)
     }
-    // looking for user in database
-    const userExists = await User.findBy('id', params.id)
 
   }
 
