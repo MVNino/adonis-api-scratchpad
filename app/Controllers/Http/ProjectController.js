@@ -4,16 +4,13 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
-const User = use('App/Models/User')
-
 /**
- * Resourceful controller for interacting with users
+ * Resourceful controller for interacting with projects
  */
-class UserController {
-
+class ProjectController {
   /**
-   * Show a list of all users.
-   * GET users
+   * Show a list of all projects.
+   * GET projects
    *
    * @param {object} ctx
    * @param {Request} ctx.request
@@ -24,40 +21,31 @@ class UserController {
   }
 
   /**
-   * Create/save a new user.
-   * POST users
+   * Render a form to be used for creating a new project.
+   * GET projects/create
+   *
+   * @param {object} ctx
+   * @param {Request} ctx.request
+   * @param {Response} ctx.response
+   * @param {View} ctx.view
+   */
+  async create ({ request, response, view }) {
+  }
+
+  /**
+   * Create/save a new project.
+   * POST projects
    *
    * @param {object} ctx
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
   async store ({ request, response }) {
-    try {
-      const data = request.only(['username', 'email', 'password'])
-
-      const userExist = await User.findBy('email', data.email)
-
-      // Check if user exists
-      if(userExist) {
-        return response
-          .status(400)
-          .send({message: {error: 'User already registered.'}})
-      }
-
-      const user = await User.create(data)
-
-      return user
-    } catch(err) {  
-      return response
-        .status(err.status)
-        .send(err)
-    }   
-
   }
 
   /**
-   * Display a single user.
-   * GET users/:id
+   * Display a single project.
+   * GET projects/:id
    *
    * @param {object} ctx
    * @param {Request} ctx.request
@@ -65,12 +53,23 @@ class UserController {
    * @param {View} ctx.view
    */
   async show ({ params, request, response, view }) {
-
   }
 
   /**
-   * Update user details.
-   * PUT or PATCH users/:id
+   * Render a form to update an existing project.
+   * GET projects/:id/edit
+   *
+   * @param {object} ctx
+   * @param {Request} ctx.request
+   * @param {Response} ctx.response
+   * @param {View} ctx.view
+   */
+  async edit ({ params, request, response, view }) {
+  }
+
+  /**
+   * Update project details.
+   * PUT or PATCH projects/:id
    *
    * @param {object} ctx
    * @param {Request} ctx.request
@@ -80,8 +79,8 @@ class UserController {
   }
 
   /**
-   * Delete a user with id.
-   * DELETE users/:id
+   * Delete a project with id.
+   * DELETE projects/:id
    *
    * @param {object} ctx
    * @param {Request} ctx.request
@@ -91,4 +90,4 @@ class UserController {
   }
 }
 
-module.exports = UserController
+module.exports = ProjectController

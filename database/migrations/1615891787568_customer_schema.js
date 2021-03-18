@@ -6,6 +6,9 @@ const Schema = use('Schema')
 class CustomerSchema extends Schema {
   up () {
     this.create('customers', (table) => {
+      table.string('name')
+      table.text('description')
+
       table.increments()
       table.timestamps()
     })
